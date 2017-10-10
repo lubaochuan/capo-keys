@@ -1,24 +1,50 @@
-import React, {Component} from 'react';
-import {View, Text, Platform} from 'react-native';
-import {STATUS_BAR_HEIGHT} from '../constants';
+import React, { Component } from 'react';
+import { View, Image, Platform } from 'react-native';
+import Expo from 'expo';
+import { STATUS_BAR_HEIGHT } from '../constants';
+import icon from '../assets/icons/pure-icon.png';
 
-class MainScreen extends Component{
+const cacheImages = images => images.map(image => {
+    if (typeof image === 'string') return Image.prefetch(image);
+    return Expo.Asset.fromModule(image).downloadAsync();
+  });
+
+class MainScreen extends Component {
   static navigationOptions = () => ({
     title: 'Capo Keys',
     headerStyle: {
-      height: Platform.OS === 'android'? 54+STATUS_BAR_HEIGHT:54,
+      height: Platform.OS === 'android' ? 54 + STATUS_BAR_HEIGHT : 54,
       backgroundColor: '#2196F3'
     },
     headerTitleStyle: {
-      marginTop: Platform.OS === 'android'? STATUS_BAR_HEIGHT:0,
+      marginTop: Platform.OS === 'android' ? STATUS_BAR_HEIGHT : 0,
       color: 'white'
     },
-    headerLeft: <View><Text>I</Text></View>
+    headerLeft: (
+      <Image
+        source={icon}
+        style={styles.imageStyle}
+      />
+    )
   });
 
-  render(){
+  state = {
+    appIsReady: false
+  }
+
+  componentWillMount() {
+    this._loadAssetsAsync();
+  }
+
+  async _loadAssetsAsync() {
+    const imageAssets = cacheImages([icon]);
+    await Promise.all([...imageAssets]);
+    this.setState({ appIsReady: true });
+  }
+
+  render() {
     return (
-      <View style={{flex:1, backgroundColor: '#ddd'}}>
+      <View style={{ flex: 1, backgroundColor: '#ddd' }}>
         {/* chord Modal */}
 
         {/* Content */}
@@ -28,5 +54,14 @@ class MainScreen extends Component{
   }
 
 }
+
+const styles = {
+  imageStyle: {
+    marginTop: 0,
+    marginLeft: 10,
+    width: 40,
+    height: 40
+  }
+};
 
 export default MainScreen;
