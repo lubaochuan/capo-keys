@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Image, Platform } from 'react-native';
 import Expo from 'expo';
+import KeysButtons from '../components/KeysButtons';
 import { STATUS_BAR_HEIGHT } from '../constants';
 import icon from '../assets/icons/pure-icon.png';
 
@@ -45,14 +46,10 @@ class MainScreen extends Component {
   render() {
     return (
       <View style={{ flex: 1, backgroundColor: '#ddd' }}>
-        {/* chord Modal */}
-
-        {/* Content */}
-
+        <KeysButtons />
       </View>
     );
   }
-
 }
 
 const styles = {

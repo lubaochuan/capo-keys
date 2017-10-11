@@ -13,7 +13,7 @@ export default (state = INITIAL_STATE, action) => {
     case SELECT_KEY_INDEX: {
       return {
         ...state,
-        selectKeyIndex: action.payload
+        selectedKeyIndex: action.payload
       };
     }
     case SELECT_CAPO: {
