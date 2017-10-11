@@ -5,7 +5,7 @@ import {
 
 const INITIAL_STATE = {
   selectedKeyIndex: 0,
-  selectCapo: 7
+  selectedCapo: 7
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -19,7 +19,7 @@ export default (state = INITIAL_STATE, action) => {
     case SELECT_CAPO: {
       return {
         ...state,
-        selectCapo: action.payload
+        selectedCapo: action.payload
       };
     }
     default:
